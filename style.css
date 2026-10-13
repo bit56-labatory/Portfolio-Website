@@ -75,6 +75,93 @@ body {
     );
 
   background-size: 50px 50px;
+
+  /* =========================
+   TERMINAL INPUT
+========================= */
+
+#terminal-input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  color: white;
+  font-family: monospace;
+  outline: none;
+}
+
+#terminal-input:focus {
+  border-color: var(--accent);
+}
+
+/* =========================
+   ARCHITECTURE DIAGRAM
+========================= */
+
+.architecture {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.architecture div {
+  padding: 12px 18px;
+  background: rgba(96,165,250,.08);
+  border: 1px solid rgba(96,165,250,.15);
+  border-radius: 12px;
+  color: var(--accent);
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(16,185,129,.15);
+  color: #10b981;
+  border: 1px solid rgba(16,185,129,.25);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* =========================
+   PROJECT FOOTER
+========================= */
+
+.project-footer {
+  margin-top: 24px;
+}
+
+.project-footer a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* =========================
+   PROGRESS LABEL
+========================= */
+
+.project-progress-label {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+/* =========================
+   SECTION SPACING
+========================= */
+
+.section {
+  position: relative;
+}
   z-index: -3;
 }
 
