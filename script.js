@@ -1,197 +1,180 @@
-// TYPEWRITER
+// Loader
 
-const words = [
-    "AI Systems",
-    "Software Solutions",
-    "Automation Tools",
-    "Web Applications"
+window.addEventListener(
+'load',
+()=>{
+
+setTimeout(()=>{
+
+document
+.getElementById('loader')
+.style.display='none';
+
+},1800);
+
+});
+
+// Typing
+
+const words=[
+'Intelligent Systems',
+'AI Products',
+'Software Solutions',
+'Automation Platforms'
 ];
 
-let wordIndex = 0;
-let charIndex = 0;
-let deleting = false;
+let w=0;
+let c=0;
+let del=false;
 
-const typing =
-document.getElementById("typing");
+const target=
+document.getElementById('typing');
 
-function type() {
+function type(){
 
-    const current =
-    words[wordIndex];
+const current=
+words[w];
 
-    if (!deleting) {
+if(!del){
 
-        typing.textContent =
-        current.substring(
-            0,
-            charIndex++
-        );
+target.textContent=
+current.substring(0,c++);
 
-        if (
-            charIndex >
-            current.length
-        ) {
+if(c>current.length){
 
-            deleting = true;
+del=true;
 
-            setTimeout(
-                type,
-                1200
-            );
+setTimeout(type,1000);
 
-            return;
-        }
+return;
 
-    } else {
+}
 
-        typing.textContent =
-        current.substring(
-            0,
-            charIndex--
-        );
+}else{
 
-        if (charIndex === 0) {
+target.textContent=
+current.substring(0,c--);
 
-            deleting = false;
+if(c===0){
 
-            wordIndex =
-            (wordIndex + 1)
-            %
-            words.length;
+del=false;
 
-        }
+w=(w+1)%words.length;
 
-    }
+}
 
-    setTimeout(
-        type,
-        deleting ? 50 : 100
-    );
+}
+
+setTimeout(
+type,
+del?50:90
+);
+
 }
 
 type();
 
-// FOOTER YEAR
+// Hero Tilt
 
-document.getElementById("year")
-.textContent =
-new Date().getFullYear();
+const hero=
+document.querySelector('.hero');
 
-// SCROLL REVEAL
+document.addEventListener(
+'mousemove',
+e=>{
 
-const observer =
-new IntersectionObserver(
-entries => {
+const x=
+(e.clientX/window.innerWidth-.5)
+*10;
 
-entries.forEach(
-entry => {
+const y=
+(e.clientY/window.innerHeight-.5)
+*10;
 
-if (
-entry.isIntersecting
-) {
-
-entry.target.classList.add(
-"show"
-);
-
-}
+hero.style.transform=
+`rotateY(${x}deg)
+rotateX(${-y}deg)`;
 
 });
 
+// Spotlight
+
+const spotlight=
+document.querySelector('.spotlight');
+
+document.addEventListener(
+'mousemove',
+e=>{
+
+spotlight.style.left=
+e.clientX+'px';
+
+spotlight.style.top=
+e.clientY+'px';
+
 });
 
+// Terminal
+
+const output=
 document
-.querySelectorAll(".hidden")
-.forEach(
-el => observer.observe(el)
+.getElementById(
+'terminal-output'
 );
 
-// PARTICLES
+const input=
+document
+.getElementById(
+'terminal-input'
+);
 
-const canvas =
+const commands={
+
+help:
+'about, skills, projects, contact',
+
+about:
+'Software Engineer passionate about AI and automation.',
+
+skills:
+'Python, JavaScript, SQL, APIs, AI',
+
+projects:
+'AI Assistant, Trading Intelligence, Portfolio',
+
+contact:
+'mitchbandz172@gmail.com'
+
+};
+
+input.addEventListener(
+'keydown',
+e=>{
+
+if(e.key==='Enter'){
+
+const cmd=
+input.value.toLowerCase();
+
+output.innerHTML+=
+`<br>> ${cmd}`;
+
+output.innerHTML+=
+`<br>${
+commands[cmd]
+||
+'Unknown command'
+}<br>`;
+
+input.value='';
+
+}
+
+});
+
+// Footer Year
+
 document.getElementById(
-"particles"
-);
-
-const ctx =
-canvas.getContext("2d");
-
-canvas.width =
-window.innerWidth;
-
-canvas.height =
-window.innerHeight;
-
-const particles = [];
-
-for(let i=0;i<100;i++){
-
-particles.push({
-
-x:
-Math.random()
-*
-canvas.width,
-
-y:
-Math.random()
-*
-canvas.height,
-
-dx:
-(Math.random()-.5),
-
-dy:
-(Math.random()-.5),
-
-size:
-Math.random()*3+1
-
-});
-
-}
-
-function animate(){
-
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-particles.forEach(p=>{
-
-p.x += p.dx;
-p.y += p.dy;
-
-if(p.x<0)p.x=canvas.width;
-if(p.x>canvas.width)p.x=0;
-
-if(p.y<0)p.y=canvas.height;
-if(p.y>canvas.height)p.y=0;
-
-ctx.fillStyle =
-"#60a5fa";
-
-ctx.beginPath();
-
-ctx.arc(
-p.x,
-p.y,
-p.size,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-});
-
-requestAnimationFrame(
-animate
-);
-
-}
-
-animate();
+'year'
+).textContent=
+new Date().getFullYear();
