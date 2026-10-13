@@ -1,41 +1,54 @@
+// TYPEWRITER
+
 const words = [
     "AI Systems",
-    "Software Applications",
+    "Software Solutions",
     "Automation Tools",
-    "Data Solutions",
-    "Ideas Into Reality"
+    "Web Applications"
 ];
 
 let wordIndex = 0;
 let charIndex = 0;
 let deleting = false;
 
-const typingText =
+const typing =
 document.getElementById("typing");
 
-function typeEffect() {
+function type() {
 
-    const currentWord =
+    const current =
     words[wordIndex];
 
     if (!deleting) {
 
-        typingText.textContent =
-        currentWord.slice(0, charIndex++);
+        typing.textContent =
+        current.substring(
+            0,
+            charIndex++
+        );
 
-        if (charIndex >
-            currentWord.length) {
+        if (
+            charIndex >
+            current.length
+        ) {
 
             deleting = true;
 
-            setTimeout(typeEffect, 1500);
+            setTimeout(
+                type,
+                1200
+            );
+
             return;
         }
 
     } else {
 
-        typingText.textContent =
-        currentWord.slice(0, charIndex--);
+        typing.textContent =
+        current.substring(
+            0,
+            charIndex--
+        );
 
         if (charIndex === 0) {
 
@@ -43,121 +56,142 @@ function typeEffect() {
 
             wordIndex =
             (wordIndex + 1)
-            % words.length;
+            %
+            words.length;
+
         }
+
     }
 
     setTimeout(
-        typeEffect,
+        type,
         deleting ? 50 : 100
     );
 }
 
-typeEffect();
+type();
 
-const year =
-document.getElementById("year");
+// FOOTER YEAR
 
-if (year) {
-    year.textContent =
-    new Date().getFullYear();
-}
+document.getElementById("year")
+.textContent =
+new Date().getFullYear();
+
+// SCROLL REVEAL
 
 const observer =
-new IntersectionObserver(entries => {
+new IntersectionObserver(
+entries => {
 
-    entries.forEach(entry => {
+entries.forEach(
+entry => {
 
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
+if (
+entry.isIntersecting
+) {
 
-    });
+entry.target.classList.add(
+"show"
+);
+
+}
 
 });
 
-document.querySelectorAll(".hidden")
-.forEach(el => observer.observe(el));
+});
+
+document
+.querySelectorAll(".hidden")
+.forEach(
+el => observer.observe(el)
+);
+
+// PARTICLES
 
 const canvas =
-document.getElementById("particles");
+document.getElementById(
+"particles"
+);
 
-if (canvas) {
+const ctx =
+canvas.getContext("2d");
 
-    const ctx =
-    canvas.getContext("2d");
+canvas.width =
+window.innerWidth;
 
-    function resize() {
+canvas.height =
+window.innerHeight;
 
-        canvas.width =
-        window.innerWidth;
+const particles = [];
 
-        canvas.height =
-        window.innerHeight;
-    }
+for(let i=0;i<100;i++){
 
-    resize();
+particles.push({
 
-    const particles = [];
+x:
+Math.random()
+*
+canvas.width,
 
-    for (let i = 0; i < 80; i++) {
+y:
+Math.random()
+*
+canvas.height,
 
-        particles.push({
+dx:
+(Math.random()-.5),
 
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            dx: (Math.random() - 0.5),
-            dy: (Math.random() - 0.5),
-            size: Math.random() * 3 + 1
+dy:
+(Math.random()-.5),
 
-        });
-    }
+size:
+Math.random()*3+1
 
-    function animate() {
+});
 
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-        particles.forEach(p => {
-
-            p.x += p.dx;
-            p.y += p.dy;
-
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
-
-            ctx.fillStyle =
-            "rgba(96,165,250,.8)";
-
-            ctx.beginPath();
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.size,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fill();
-        });
-
-        requestAnimationFrame(
-            animate
-        );
-    }
-
-    animate();
-
-    window.addEventListener(
-        "resize",
-        resize
-    );
 }
+
+function animate(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+particles.forEach(p=>{
+
+p.x += p.dx;
+p.y += p.dy;
+
+if(p.x<0)p.x=canvas.width;
+if(p.x>canvas.width)p.x=0;
+
+if(p.y<0)p.y=canvas.height;
+if(p.y>canvas.height)p.y=0;
+
+ctx.fillStyle =
+"#60a5fa";
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+p.size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+});
+
+requestAnimationFrame(
+animate
+);
+
+}
+
+animate();
