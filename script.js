@@ -1,232 +1,196 @@
-// Loader
-
-window.addEventListener(
-'load',
-()=>{
-
-setTimeout(()=>{
-
-document
-.getElementById('loader')
-.style.display='none';
-
-},1800);
-
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+    }, 1800);
 });
 
-// Typing
+const typingTarget = document.getElementById("typing");
 
-const words=[
-'Intelligent Systems',
-'AI Products',
-'Software Solutions',
-'Automation Platforms'
+const words = [
+    "Intelligent Systems",
+    "AI Products",
+    "Software Solutions",
+    "Automation Platforms"
 ];
 
-let w=0;
-let c=0;
-let del=false;
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-const target=
-document.getElementById('typing');
+function typeEffect() {
 
-function type(){
+    const current = words[wordIndex];
 
-const current=
-words[w];
+    if (!deleting) {
 
-if(!del){
+        typingTarget.textContent =
+            current.substring(0, charIndex++);
 
-target.textContent=
-current.substring(0,c++);
+        if (charIndex > current.length) {
+            deleting = true;
+            setTimeout(typeEffect, 1200);
+            return;
+        }
 
-if(c>current.length){
+    } else {
 
-del=true;
+        typingTarget.textContent =
+            current.substring(0, charIndex--);
 
-setTimeout(type,1000);
+        if (charIndex === 0) {
+            deleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        }
 
-return;
+    }
 
+    setTimeout(typeEffect, deleting ? 50 : 90);
 }
 
-}else{
+typeEffect();
 
-target.textContent=
-current.substring(0,c--);
+document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-if(c===0){
+const spotlight =
+document.querySelector(".spotlight");
 
-del=false;
+document.addEventListener("mousemove", e => {
 
-w=(w+1)%words.length;
-
-}
-
-}
-
-setTimeout(
-type,
-del?50:90
-);
-
-}
-
-type();
-
-// Hero Tilt
-
-const hero=
-document.querySelector('.hero');
-
-document.addEventListener(
-'mousemove',
-e=>{
-
-const x=
-(e.clientX/window.innerWidth-.5)
-*10;
-
-const y=
-(e.clientY/window.innerHeight-.5)
-*10;
-
-hero.style.transform=
-`rotateY(${x}deg)
-rotateX(${-y}deg)`;
+    spotlight.style.left = e.clientX + "px";
+    spotlight.style.top = e.clientY + "px";
 
 });
 
-// Spotlight
+const hero =
+document.querySelector(".hero");
 
-const spotlight=
-document.querySelector('.spotlight');
+document.addEventListener("mousemove", e => {
 
-document.addEventListener(
-'mousemove',
-e=>{
+    const x =
+    ((e.clientX / window.innerWidth) - 0.5) * 10;
 
-spotlight.style.left=
-e.clientX+'px';
+    const y =
+    ((e.clientY / window.innerHeight) - 0.5) * 10;
 
-spotlight.style.top=
-e.clientY+'px';
+    hero.style.transform =
+    `rotateY(${x}deg) rotateX(${-y}deg)`;
 
 });
 
-// Terminal
+const terminalInput =
+document.getElementById("terminal-input");
 
-const output=
-document
-.getElementById(
-'terminal-output'
-);
+const terminalOutput =
+document.getElementById("terminal-output");
 
-const input=
-document
-.getElementById(
-'terminal-input'
-);
+const commands = {
 
-const commands={
+help: `
+Commands:
 
-help:
-'about, skills, projects, contact',
+about
+skills
+projects
+github
+contact
+`,
 
-about:
-'Software Engineer passionate about AI and automation.',
+about: `
+Mechanical Engineering graduate
+with a Computer Science concentration.
 
-skills:
-'Python, JavaScript, SQL, APIs, AI',
+Focused on AI systems and software engineering.
+`,
 
-projects:
-'AI Assistant, Trading Intelligence, Portfolio',
+skills: `
+Python
+JavaScript
+SQL
+REST APIs
+Git
+AI Development
+`,
 
-contact:
-'mitchbandz172@gmail.com'
+projects: `
+Personal AI Assistant
+Trading Intelligence
+Portfolio Website
+`,
+
+github: `
+github.com/bit56-labatory
+`,
+
+contact: `
+mitchbandz172@gmail.com
+`
 
 };
 
-input.addEventListener(
-'keydown',
-e=>{
+terminalInput.addEventListener(
+"keydown",
+e => {
 
-if(e.key==='Enter'){
+if(e.key === "Enter"){
 
-const cmd=
-input.value.toLowerCase();
+const cmd =
+terminalInput.value.toLowerCase();
 
-output.innerHTML+=
-`<br>> ${cmd}`;
+terminalOutput.innerHTML +=
 
-output.innerHTML+=
-`<br>${
-commands[cmd]
-||
-'Unknown command'
-}<br>`;
+`<br><span style="color:#60a5fa;">></span> ${cmd}<br>`;
 
-input.value='';
+terminalOutput.innerHTML +=
+
+`${commands[cmd] || "Unknown Command"}<br>`;
+
+terminalInput.value = "";
+
+terminalOutput.scrollTop =
+terminalOutput.scrollHeight;
 
 }
 
 });
 
-// Footer Year
-
-document.getElementById(
-'year'
-).textContent=
-new Date().getFullYear();
 const cards =
-document.querySelectorAll(
-'.project-card'
-);
+document.querySelectorAll(".project-card");
 
-cards.forEach(card=>{
+cards.forEach(card => {
 
 card.addEventListener(
-'mousemove',
-e=>{
+"mousemove",
+e => {
 
 const rect =
 card.getBoundingClientRect();
 
 const x =
-e.clientX -
-rect.left;
+e.clientX - rect.left;
 
 const y =
-e.clientY -
-rect.top;
-
-const centerX =
-rect.width / 2;
-
-const centerY =
-rect.height / 2;
+e.clientY - rect.top;
 
 const rotateX =
--(y-centerY)/20;
+-(y - rect.height / 2) / 20;
 
 const rotateY =
-(x-centerX)/20;
+(x - rect.width / 2) / 20;
 
 card.style.transform =
-`
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-translateY(-10px)
-`;
+
+`rotateX(${rotateX}deg)
+ rotateY(${rotateY}deg)
+ translateY(-10px)`;
 
 });
 
 card.addEventListener(
-'mouseleave',
-()=>{
+"mouseleave",
+() => {
 
-card.style.transform =
-'rotateX(0) rotateY(0)';
+card.style.transform = "";
 
 });
 
