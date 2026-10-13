@@ -5,75 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emanuel Emeka | Software Engineer</title>
 
-    <tyle.css
+    <link rel="stylesheet" href="style.css">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- PARTICLE BACKGROUND -->
     <canvas id="particles"></canvas>
 
-    <!-- NAVIGATION -->
-
     <nav>
-
-        <h2>Emanuel.</h2>
+        <div class="logo">EMANUEL.</div>
 
         <ul>
-            <li><a hrefbout</a></li>
-            <li><skillsSkills</a></li>
-            <li><a href="#projects">Projects</a></li   <li><contactContact</a></li>
+            <li>#aboutAbout</a></li>
+            <li>#skillsSkills</a></li>
+            <li><projectsProjects</a></li>
+            <li><contactContact</a></li>
         </ul>
-
     </nav>
-
-    <!-- HERO -->
 
     <section class="hero">
 
-        <div class="floating">
+        <h4>👋 Welcome</h4>
 
-            <h4 id="greeting">
-                Welcome 👋
-            </h4>
+        <h1>
+            I Build
+            <span id="typing"></span>
+        </h1>
 
-            <h1>
-                I Build
-                <span id="typing"></span>
-            </h1>
+        <p>
+            Software Engineer • AI Builder • Problem Solver
+        </p>
 
-            <p>
-                Aspiring Software Engineer focused on Artificial Intelligence,
-                Automation, Data Analytics, and building technology that solves
-                real-world problems.
-            </p>
+        <div class="buttons">
+            <a
+                href="https://github.com/bit56-labatory"
+                target="_blank"
+                class="btn">
+                GitHub
+            </a>
 
-            <div class="btn-group">
+            <a
+                href="https://www.linkedin.com/in/emanuel-emeka-5086331a5/"
+                target="_blank"
+                class="btn">
+                LinkedIn
+            </a>
+        </div>
 
-                <a
-                    href="https://github.com/bit56-labatory"
-                    target="_blank"
-                    class="btn">
-                    GitHub
-                </a>
+    </section>
 
-                <a
-                    href="https://www.linkedin.com/in/emanuel-emeka-5086331a5/"
-                    target="_blank"
-                    class="btn">
-                    LinkedIn
-                </a>
+    <section id="about" class="hidden">
 
-                <a
-                    href="resume.pdf"
-                    class="btn">
-                    Resume
-                </a>
+        <h2>About Me</h2>
+
+        <p>
+            I'm Emanuel Emeka, a Mechanical Engineering graduate
+            with a Computer Science concentration.
+
+            My focus is Software Engineering,
+            Artificial Intelligence, Automation,
+            and creating technology that solves
+            real-world problems.
+        </p>
+
+    </section>
+
+    <section id="skills" class="hidden">
+
+        <h2>Skills</h2>
+
+        <div class="skills-grid">
+
+            <div class="skill">Python</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">SQL</div>
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+
+            <div class="skill">Git</div>
+            <div class="skill">GitHub</div>
+            <div class="skill">REST APIs</div>
+
+            <div class="skill">AI</div>
+            <div class="skill">Machine Learning</div>
+
+        </div>
+
+    </section>
+
+    <section id="projects" class="hidden">
+
+        <h2>Featured Projects</h2>
+
+        <div class="project-grid">
+
+            <div class="project-card">
+
+                <h3>Personal AI Assistant</h3>
+
+                <p>
+                    AI-powered assistant with memory,
+                    automation, task execution,
+                    and conversational capabilities.
+                </p>
+
+            </div>
+
+            <div class="project-card">
+
+                <h3>Trading Intelligence</h3>
+
+                <p>
+                    Quantitative market-analysis platform
+                    built for strategy testing,
+                    evaluation, and reporting.
+                </p>
+
+            </div>
+
+            <div class="project-card">
+
+                <h3>Portfolio Website</h3>
+
+                <p>
+                    Modern responsive portfolio built
+                    with HTML, CSS, and JavaScript.
+                </p>
 
             </div>
 
@@ -81,17 +142,33 @@
 
     </section>
 
-    <!-- ABOUT -->
+    <section id="contact" class="hidden">
 
-    <section
-        id="about"
-        class="hidden">
+        <h2>Let's Connect</h2>
 
-        <h2 class="section-title">
-            About Me
-        </h2>
+        <p>
+            Email:
+            <a href="mailto:mitchbandz172@gmail.com">
+                mitchbandz172@gmail.com
+            </a>
+        </p>
 
-        <div class="about">
+        <p>
+            GitHub:
+            <a href="https://github.com/bit56-labatory">
+                github.com/bit56-labatory
+            </a>
+        </p>
 
-            <p>
-        
+    </section>
+
+    <footer>
+        <p>
+            © <span id="year"></span> Emanuel Emeka
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
