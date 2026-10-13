@@ -1,288 +1,163 @@
-// =============================
-// SCROLL REVEAL
-// =============================
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  },
-  {
-    threshold: 0.15
-  }
-);
-
-document.querySelectorAll(".hidden").forEach((el) => {
-  observer.observe(el);
-});
-
-// =============================
-// TYPEWRITER EFFECT
-// =============================
-
 const words = [
-  "AI Systems",
-  "Software Solutions",
-  "Automation Tools",
-  "Web Applications",
-  "Data Analytics Platforms"
+    "AI Systems",
+    "Software Applications",
+    "Automation Tools",
+    "Data Solutions",
+    "Ideas Into Reality"
 ];
 
 let wordIndex = 0;
 let charIndex = 0;
-let currentWord = "";
-let isDeleting = false;
+let deleting = false;
 
-const typingElement = document.getElementById("typing");
+const typingText =
+document.getElementById("typing");
 
-function type() {
+function typeEffect() {
 
-  currentWord = words[wordIndex];
+    const currentWord =
+    words[wordIndex];
 
-  if (!isDeleting) {
-    typingElement.textContent =
-      currentWord.substring(0, charIndex + 1);
+    if (!deleting) {
 
-    charIndex++;
+        typingText.textContent =
+        currentWord.slice(0, charIndex++);
 
-    if (charIndex === currentWord.length) {
-      isDeleting = true;
-      setTimeout(type, 1500);
-      return;
-    }
+        if (charIndex >
+            currentWord.length) {
 
-  } else {
+            deleting = true;
 
-    typingElement.textContent =
-      currentWord.substring(0, charIndex - 1);
-
-    charIndex--;
-
-    if (charIndex === 0) {
-      isDeleting = false;
-      wordIndex =
-        (wordIndex + 1) % words.length;
-    }
-
-  }
-
-  setTimeout(type, isDeleting ? 50 : 100);
-}
-
-if (typingElement) {
-  type();
-}
-
-// =============================
-// ACTIVE NAVBAR LINKS
-// =============================
-
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
-
-window.addEventListener("scroll", () => {
-
-  let current = "";
-
-  sections.forEach(section => {
-
-    const sectionTop = section.offsetTop;
-
-    if (pageYOffset >= sectionTop - 200) {
-      current = section.getAttribute("id");
-    }
-
-  });
-
-  navLinks.forEach(link => {
-
-    link.classList.remove("active");
-
-    if (
-      link.getAttribute("href") ===
-      "#" + current
-    ) {
-      link.classList.add("active");
-    }
-
-  });
-
-});
-
-// =============================
-// COUNTER ANIMATION
-// =============================
-
-const counters =
-document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-
-  function updateCounter() {
-
-    const target =
-    +counter.getAttribute("data-target");
-
-    const current =
-    +counter.innerText;
-
-    const increment = target / 80;
-
-    if (current < target) {
-
-      counter.innerText =
-      Math.ceil(current + increment);
-
-      setTimeout(updateCounter, 30);
+            setTimeout(typeEffect, 1500);
+            return;
+        }
 
     } else {
 
-      counter.innerText = target;
+        typingText.textContent =
+        currentWord.slice(0, charIndex--);
 
+        if (charIndex === 0) {
+
+            deleting = false;
+
+            wordIndex =
+            (wordIndex + 1)
+            % words.length;
+        }
     }
 
-  }
-
-  updateCounter();
-
-});
-
-// =============================
-// DYNAMIC YEAR
-// =============================
-
-const yearElement =
-document.getElementById("year");
-
-if (yearElement) {
-  yearElement.textContent =
-  new Date().getFullYear();
+    setTimeout(
+        typeEffect,
+        deleting ? 50 : 100
+    );
 }
 
-// =============================
-// SMOOTH SCROLL
-// =============================
+typeEffect();
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+const year =
+document.getElementById("year");
 
-  anchor.addEventListener("click", function(e) {
+if (year) {
+    year.textContent =
+    new Date().getFullYear();
+}
 
-    e.preventDefault();
+const observer =
+new IntersectionObserver(entries => {
 
-    document.querySelector(
-      this.getAttribute("href")
-    ).scrollIntoView({
+    entries.forEach(entry => {
 
-      behavior: "smooth"
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
 
     });
 
-  });
-
 });
 
-// =============================
-// MOUSE SPOTLIGHT EFFECT
-// =============================
+document.querySelectorAll(".hidden")
+.forEach(el => observer.observe(el));
 
-const spotlight =
-document.createElement("div");
+const canvas =
+document.getElementById("particles");
 
-spotlight.style.position = "fixed";
-spotlight.style.width = "350px";
-spotlight.style.height = "350px";
-spotlight.style.borderRadius = "50%";
-spotlight.style.pointerEvents = "none";
-spotlight.style.background =
-"radial-gradient(circle, rgba(37,99,235,.18), transparent 70%)";
-spotlight.style.zIndex = "-1";
+if (canvas) {
 
-document.body.appendChild(spotlight);
+    const ctx =
+    canvas.getContext("2d");
 
-document.addEventListener("mousemove", (e) => {
+    function resize() {
 
-  spotlight.style.left =
-  `${e.clientX - 175}px`;
+        canvas.width =
+        window.innerWidth;
 
-  spotlight.style.top =
-  `${e.clientY - 175}px`;
+        canvas.height =
+        window.innerHeight;
+    }
 
-});
+    resize();
 
-// =============================
-// RANDOM GREETING
-// =============================
+    const particles = [];
 
-const greetings = [
-  "Welcome 👋",
-  "Hello There 🚀",
-  "Let's Build Something Amazing",
-  "Future Software Engineer",
-  "AI Developer In Progress"
-];
+    for (let i = 0; i < 80; i++) {
 
-const greeting =
-document.getElementById("greeting");
+        particles.push({
 
-if (greeting) {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: (Math.random() - 0.5),
+            dy: (Math.random() - 0.5),
+            size: Math.random() * 3 + 1
 
-  greeting.textContent =
-  greetings[
-    Math.floor(
-      Math.random() * greetings.length
-    )
-  ];
+        });
+    }
 
+    function animate() {
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        particles.forEach(p => {
+
+            p.x += p.dx;
+            p.y += p.dy;
+
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+
+            ctx.fillStyle =
+            "rgba(96,165,250,.8)";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+        });
+
+        requestAnimationFrame(
+            animate
+        );
+    }
+
+    animate();
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
 }
-
-// =============================
-// PROJECT CARD HOVER TILT
-// =============================
-
-const cards =
-document.querySelectorAll(".project-card");
-
-cards.forEach(card => {
-
-  card.addEventListener("mousemove", (e) => {
-
-    const rect =
-    card.getBoundingClientRect();
-
-    const x =
-    e.clientX - rect.left;
-
-    const y =
-    e.clientY - rect.top;
-
-    const centerX =
-    rect.width / 2;
-
-    const centerY =
-    rect.height / 2;
-
-    const rotateX =
-    -(y - centerY) / 18;
-
-    const rotateY =
-    (x - centerX) / 18;
-
-    card.style.transform =
-    `perspective(1000px)
-    rotateX(${rotateX}deg)
-    rotateY(${rotateY}deg)
-    scale(1.05)`;
-
-  });
-
-  card.addEventListener("mouseleave", () => {
-
-    card.style.transform =
-    "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
-
-  });
-
-});
